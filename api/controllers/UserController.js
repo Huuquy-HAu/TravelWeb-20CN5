@@ -1,6 +1,26 @@
 const User = require("../models/User")
 const { JWT_PASS } = process.env
-var jwt = require('jsonwebtoken');
+const jwt = require('jsonwebtoken');
+const fs = require('fs')
+const path = require('path');
+const multer = require('multer');
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+      cb(null, './publics/uploads/avatar');
+    },
+    filename: function (req, file, cb) {
+      const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9) + path.extname(file.originalname);
+      cb(null, file.fieldname + '-' + uniqueSuffix);
+    }
+})
+
+exports.upload = multer({ storage: storage , 
+    fileFilter: function(req, file, cb){
+        if(!file.mimetype.includes('image')) return cb(new Error('I don\'t have a clue!'))
+
+        cb(null, true)
+}})
+
 
 exports.signUp = async (req, res) => {
     try {
@@ -85,5 +105,24 @@ exports.changeUserInfor = async (req, res) => {
         res.status(200).json({ status: 200, data: user })
     } catch (error) {
         return res.status(500).json({ status: 500, message: "error server ", error })
+    }
+}
+
+
+exports.changeAvatar = async (req, res) => {
+    console.log(req.file);
+    try {
+        if(!req.file) return res.status(400).json({message: 'please choose an avatar'});
+        
+        const user = await User.findOne({_id: req.user._id});
+
+        if(!user.avatar.startsWith('http')){
+            fs.unlink(user.avatar, () => {return})
+        }
+
+        await User.updateOne({_id: req.user._id}, {avatar: req.file.path});
+        res.status(200).json({message: 'change avatar ok'})
+    } catch (error) {
+        res.status(500).json({message: 'server error', error})
     }
 }
