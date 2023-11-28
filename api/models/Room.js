@@ -20,6 +20,10 @@ const roomSchema = new mongoose.Schema({
         type: addressSchema,
         required: true
     },
+    thumbnail: {
+        type: String, 
+        default: 'https://cdn.alongwalk.info/vn/wp-content/uploads/2022/03/13034625/image-danh-sach-nhung-buc-anh-viet-nam-lot-top-anh-dep-the-gioi-164709278437272.jpg'
+    },
     images: [{ type: String }],
     rating: {
         type: Number,
@@ -36,6 +40,11 @@ const roomSchema = new mongoose.Schema({
         ref: 'User',
         default: null
     },
+    userId: { 
+        type: Schema.Types.ObjectId, 
+        ref: 'User', 
+        required: true 
+    } 
 });
 
 const RoomModel = mongoose.model("Room", roomSchema);

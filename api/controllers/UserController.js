@@ -21,7 +21,6 @@ exports.upload = multer({ storage: storage ,
         cb(null, true)
 }})
 
-
 exports.signUp = async (req, res) => {
     try {
         const checkUserName = await User.findOne({ username: req.body.username });
@@ -107,7 +106,6 @@ exports.changeUserInfor = async (req, res) => {
         return res.status(500).json({ status: 500, message: "error server ", error })
     }
 }
-
 
 exports.changeAvatar = async (req, res) => {
     console.log(req.file);
