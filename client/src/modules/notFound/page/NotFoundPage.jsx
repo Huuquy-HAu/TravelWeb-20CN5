@@ -3,7 +3,9 @@ import "../scss/NotFoundPage.css"
 
 function NotFoundPage() {
   return (
-    <div>NotFoundPage</div>
+    <div>NotFoundPage
+      
+    </div>
   )
 }
 
