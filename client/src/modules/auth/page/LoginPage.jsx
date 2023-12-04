@@ -1,59 +1,26 @@
 import React from 'react'
 import "../scss/LoginPage.css"
+import LogInForm from '../components/LogInForm'
 
 function LoginPage() {
-  return (
-    <div className='body-loginPage'>LoginPage
-        <h2>Sign in/up Form</h2>
-    <div className="container" id="container">
-        <div className="form-container sign-up-container">
-            <form action="#">
-                <h1>Create Account</h1>
-                <div class="social-container">
-                    <a href="#" class="social"><i class="bi bi-facebook"></i></a>
-                    <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
-                    <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
-                </div>
-                <span>or use your email for registration</span>
-                <input type="text" placeholder="Name" />
-                <input type="text" placeholder="Username" />
-                <input type="password" placeholder="Password" />
-                <button>Sign Up</button>
-            </form>
-        </div>
-        <div className="form-container sign-in-container">
-            <form action="#">
-                <h1>Sign in</h1>
-                <div className="social-container">
-                    <a href="#" class="social"><i class="bi bi-facebook"></i></a>
-                    <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
-                    <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
-                </div>
-                <span>or use your account</span>
-                <input type="text" placeholder="Username" />
-                <input type="password" placeholder="Password" />
-                <a href="#">Forgot your password?</a>
-                <button>Sign In</button>
-            </form>
-        </div>
-        <div className="overlay-container">
-            <div className="overlay">
-                <div className="overlay-panel overlay-left">
-                    <h1>Welcome Back!</h1>
-                    <p>To keep connected with us please login with your personal info</p>
-                    <button className="ghost" id="signIn">Sign In</button>
-                </div>
-                <div className="overlay-panel overlay-right">
-                    <h1>Hello, Friend!</h1>
-                    <p>Enter your personal details and start journey with us</p>
-                    <button className="ghost" id="signUp">Sign Up</button>
-                </div>
+    const onFinish = (values) => {
+        console.log('Success:', values);
+    };
+    const onFinishFailed = (errorInfo) => {
+        console.log('Failed:', errorInfo);
+    };
+
+    return (
+        <div className="sign-in-page">
+            <div className="left-container">
+                <LogInForm onFinish={onFinish} onFinishFailed={onFinishFailed} />
+            </div>
+            <div className="right-container">
+                <img src="https://i.pinimg.com/564x/04/3e/93/043e9378e4f8836707037e813d302c89.jpg" alt="" />
             </div>
         </div>
-    </div>
-    </div>
-  )
-  
+    )
+
 }
 
 export default LoginPage

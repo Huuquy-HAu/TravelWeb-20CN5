@@ -1,6 +1,6 @@
 export const ROUTES = {
     home:'/',
-    login:'/log-in',
+    signin:'/sign-in',
     signup:'/sign-up',
     notFoundPage:"*"
 }
