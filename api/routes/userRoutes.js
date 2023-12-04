@@ -13,3 +13,4 @@ router.patch('/api/user/avatar', checkLogin ,upload.single('avatar'), changeAvat
 
 
 module.exports = router
+  
