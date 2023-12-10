@@ -96,6 +96,27 @@ exports.changePassword = async (req, res) => {
     }
 }
 
+exports.updateRole = async (req, res) => {
+    try {
+        const role = req.body.role;
+        const currentUser = await User.findById(req.user._id);
+
+        if (currentUser.role != 0) {
+            // Chỉ cấm người dùng nếu họ chưa bị cấm
+            await User.findByIdAndUpdate(req.user._id, { role: 0 });
+            return res.status(200).json({ status: 200, message: "Ban role success" });
+        } else if (currentUser.role == 0) {
+            // Chỉ bỏ cấm người dùng nếu họ đã bị cấm
+            await User.findByIdAndUpdate(req.user._id, { role: 1 });
+            return res.status(200).json({ status: 200, message: "Unban role success" });
+        } else {
+            return res.status(400).json({ status: 400, message: "Invalid role change" });
+        }
+    } catch (error) {
+        return res.status(500).json({ status: 500, message: "Server error", error });
+    }
+}
+
 exports.changeUserInfor = async (req, res) => {
     try {
         const { address, phoneNumber, gender, description } = req.body

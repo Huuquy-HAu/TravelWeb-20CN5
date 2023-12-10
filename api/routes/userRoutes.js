@@ -1,4 +1,4 @@
-const { signIn, signUp, getInforOneUser, getAllUserOrGetOne, changePassword, changeUserInfor, changeAvatar, upload } = require("../controllers/UserController");
+const { signIn, signUp, getInforOneUser, getAllUserOrGetOne, changePassword, changeUserInfor, changeAvatar, upload, banUser, updateRole } = require("../controllers/UserController");
 const { checkLogin, CheckAdmin } = require("../middlewares/User");
 const router = require('express').Router();
 
@@ -11,6 +11,12 @@ router.get('/api/user/:id', CheckAdmin, getAllUserOrGetOne)
 router.post('/api/user/change-password', checkLogin, changePassword)
 router.patch('/api/user/avatar', checkLogin ,upload.single('avatar'), changeAvatar)
 
+//làm ở đây=================
 
+router.post('/api/user/update-role', checkLogin, updateRole)
+
+
+
+//==========================
 module.exports = router
   
