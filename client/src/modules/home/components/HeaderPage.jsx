@@ -2,15 +2,19 @@ import React from 'react'
 import logoImgage from '../../../img/LogoProject.png'
 import logoImgage2 from '../../../img/LogoProject2-removebg-preview.png'
 import { useNavigate } from 'react-router';
-import { Button, Dropdown, Space, Flex, Avatar } from 'antd';
+import { Button, Dropdown, Space, Flex, Avatar, message } from 'antd';
 import { SearchOutlined, HomeOutlined, MenuOutlined } from '@ant-design/icons';
+import Cookies from 'js-cookie';
+import { useSelector } from 'react-redux';
+import { UserData } from '../../auth/redux/UserReducer';
 
 
 function HeaderPage() {
   const nav = useNavigate()
-
+  const User = useSelector(UserData)
 
   const url = 'https://scontent.fhan14-3.fna.fbcdn.net/v/t39.30808-6/346485998_786097866452068_4022572448692318652_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=9c7eae&_nc_ohc=HharkQeOwTsAX_Z2lgH&_nc_ht=scontent.fhan14-3.fna&oh=00_AfCka2pkdjBaoUXyKP8SZ4L1Hn_IbLFNb_gIsafkEn_ZOQ&oe=657C702A';
+  const domain = 'http://localhost:4000/'
 
   const items = [
     {
@@ -38,22 +42,42 @@ function HeaderPage() {
       ),
     },
 
+    
+
     {
-      key: '4',
+      key: '5',
       label: (
-        <a target="_blank" onClick={() => { nav('./admin') }}>
-          Trang quản trị
+        <a
+          target="_blank"
+          onClick={() => {
+            nav('./sign-in')
+            localStorage.removeItem('TravelAccount')
+            Cookies.remove('TravelAccount')
+            message.success('Đăng xuất thành công', 2)
+          }}>
+          Đăng xuất
         </a>
       ),
     },
   ];
 
+  if(User.role == 2){
+    items.splice(3, 0,
+      {
+        key: '4',
+        label: (
+          <a target="_blank" onClick={() => { nav('./admin') }}>
+            Trang quản trị
+          </a>
+        ),
+      }, );
+  }
 
   return (
     <div className='header-page'>
       <div className="left-container">
         <div className="logo">
-          <img src={logoImgage2} alt="" />
+          <img src={ logoImgage2 } alt="" />
         </div>
       </div>
       <div className="center-container">
@@ -91,10 +115,10 @@ function HeaderPage() {
               height: '60px'
             }}
           >
-            UserName
+            {User ? User.username : "Loading . . ."}
 
             <Avatar
-              src={<img src={url} alt="avatar" />}
+              src={<img src={User ? domain + User.avatar : url} alt="avatar" />}
               style={{
                 marginLeft: '10px',
               }}
