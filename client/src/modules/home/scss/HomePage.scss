@@ -1,0 +1,161 @@
+.homePage-container {
+    background: white;
+
+    .header-page {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+
+        // box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+        .left-container {
+            width: 33%;
+
+            .logo {
+                img {
+                    width: 300px;
+                }
+            }
+        }
+
+        .center-container {
+            width: 33%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .right-container {
+            width: 33%;
+            display: flex;
+            align-items: center;
+            justify-content: end;
+        }
+    }
+
+    .Home-container {
+        .banner {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+
+            .home-video {
+                width: 92%;
+                border-radius: 30px;
+                position: relative;
+            }
+
+            .SearchComponent {
+                position: absolute;
+                bottom: -150px;
+                padding: 40px 24px 24px;
+                width: 1000px;
+                text-align: center;
+                border: 1px solid #eaecf0;
+                background: #fff;
+                border-radius: 32px;
+                box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+
+                .header {
+                    h1 {
+                        font-size: 36px;
+                    }
+                }
+
+                .description {
+                    font-size: 18px;
+                    color: gray;
+                    margin: 10px 0;
+                }
+
+                .form {
+                    margin-bottom: 10px;
+                    button {
+                        border-radius: 4px;
+                        padding: 12px 24px;
+                        border: none;
+                        background: #77dada;
+                    }
+
+                    button:hover {
+                        background: #0e4f4f;
+                        color: white;
+                        cursor: pointer;
+                    }
+                }
+            }
+        }
+
+        .tour-content {
+            padding: 140px 32px;
+
+            .header {
+                width: 100%;
+                display: flex;
+                margin-bottom: 40px;
+                .header-left {
+                    width: 50%;
+                    h4 {
+                        font-size: 36px;
+                        font-weight: 700;
+                        line-height: 44px;
+                        width: 350px;
+                        margin: auto;
+                    }
+                }
+                .header-right {
+                    width: 50%;
+                    p {
+                        width: 500px;
+                        margin: auto;
+                    }
+                }
+            }
+
+            .nav-tour {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: space-around;
+                padding: 0 30px;
+            }
+        }
+    }
+
+    .footerPage-container {
+        .header-container {
+            background-color: #101828;
+            color: #98a2b3;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+
+            .nav-content {
+                width: 33%;
+                padding: 12px 24px;
+
+                img {
+                    width: 400px;
+                }
+
+                div {
+                    font-weight: 700;
+                    font-size: 16px;
+                }
+
+                p,
+                .header {
+                    color: #475467;
+                }
+
+            }
+        }
+
+        .body-container {
+            padding: 48px 0;
+            display: flex;
+            justify-content: space-around;
+            color: #667085;
+            background: #1d2939;
+        }
+    }
+}

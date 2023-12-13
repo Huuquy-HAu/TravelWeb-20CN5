@@ -47,7 +47,7 @@ exports.signIn = async (req, res) => {
         delete checkAccount._doc.notifications;
         checkAccount._doc.token = token
 
-        res.status(200).json({ message: 'login success', checkAccount })
+        res.status(200).json({ message: 'login success', data:checkAccount })
     } catch (error) {
         res.status(500).json({ message: 'server error', error })
     }
