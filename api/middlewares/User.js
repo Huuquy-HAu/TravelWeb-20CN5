@@ -34,8 +34,6 @@ exports.CheckAdmin = async (req, res, next) => {
         } else {
             return res.status(401).json({ message: 'Not admin' });
         }
-
-
     } catch (error) {
         res.status(500).json({ message: 'server error', error })
     }

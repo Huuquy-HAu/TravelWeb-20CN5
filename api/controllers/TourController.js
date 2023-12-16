@@ -6,7 +6,7 @@ const path = require('path');
 const multer = require('multer');
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-      cb(null, './publics/uploads/avatar');
+      cb(null, './publics/uploads/tours');
     },
     filename: function (req, file, cb) {
       const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9) + path.extname(file.originalname);

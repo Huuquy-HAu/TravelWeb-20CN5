@@ -2,17 +2,6 @@ const Booking = require("../models/Booking")
 const { JWT_PASS } = process.env
 const jwt = require('jsonwebtoken');
 const fs = require('fs')
-const path = require('path');
-const multer = require('multer');
-const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-      cb(null, './publics/uploads/avatar');
-    },
-    filename: function (req, file, cb) {
-      const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9) + path.extname(file.originalname);
-      cb(null, file.fieldname + '-' + uniqueSuffix);
-    }
-})
 exports.getBookings = async (req, res) => {
     try {
         const userId = req.user._id;
@@ -84,7 +73,7 @@ exports.cancelBooking = async (req, res) => {
         if (!booking) {
             return res.status(404).json({ message: "Booking not found" });
         }
-        if (booking.isApproved === 1) {
+        if (booking.isApproved === 1) {z
             await Booking.findByIdAndUpdate(bookingId, { isApproved: 0 });// Nếu booking ở trạng thái chờ xét duyệt, có thể xóa 
             res.status(200).json({ message: "Booking canceled successfully" });
         } else if (booking.isApproved === 2) {
