@@ -19,6 +19,11 @@ exports.newBooking  = async (req, res) => {
     try {
         const { tourId, price ,startDate } = req.body;
         const userId = req.user._id;
+        const selectedTour = await Tour.findById(tourId);
+        if(!selectedTour){
+            return res.status(400),json({ message: "Your selected Tour is not found"})
+        }
+
         const existingBooking = await Booking.findOne({
             idTour: tourId,
             idUser: userId,
@@ -81,7 +86,7 @@ exports.cancelBooking = async (req, res) => {
                 return res.status(403).json({ message: "Permission denied" });// Nếu là user bình thường, không thể xóa
             } else if (user.role === 2) {
                 await Booking.findByIdAndUpdate(bookingId, { isApproved: 0 });// Nếu là admin, có thể xóa
-                res.status(200).json({ message: "Booking marked as deleted by admin" });
+                res.status(200).json({ message: "Booking canceled successfully" });
             }
         } else {
             res.status(400).json({ message: "Invalid action for booking in current state" });
@@ -90,3 +95,4 @@ exports.cancelBooking = async (req, res) => {
         res.status(500).json({ message: "Server error", error });
     }
 }
+
