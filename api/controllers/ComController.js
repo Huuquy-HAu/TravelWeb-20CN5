@@ -42,6 +42,24 @@ exports.postComment = async (req, res) => {
         res.status(500).json({ message: 'Server error', error });
     }
 }
+exports.editComment = async (req, res) => {
+    try{
+        const { commentId } = req.params;
+        const userId =  req.user._id;
+        const comment = await Comment.findById(commentId);
+    if(!comment){
+        return res.status(404).json({ message: 'Comment not found' });
+    }
+    if(String(comment.userId) !== userId){
+        return res.status(403).json({ message: 'Unauthorized. You do not have permission to edit this comment' });
+    }
+    comment.content = content;
+    await comment.save();
+    res.status(200).json({ message: 'Comment edited successfully', comment });
+    } catch (error) {
+        res.status(500).json({ message: 'Server error', error });
+    }
+}
 exports.deleteComment = async (req, res) => {
     try {
         const { commentId } = req.params;
@@ -58,5 +76,32 @@ exports.deleteComment = async (req, res) => {
         res.status(200).json({ message: 'Comment deleted successfully' });
     } catch (error) {
         res.status(500).json({ message: 'Server error', error });
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
     }
 }

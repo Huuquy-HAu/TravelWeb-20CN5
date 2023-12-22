@@ -2,7 +2,7 @@ const { signIn, signUp, getInforOneUser, getAllUserOrGetOne, changePassword, cha
 const { getBookings ,newBooking,ApproveBooking,cancelBooking } = require("../controllers/BookingController")
 const { getAllTours ,CreateTour, updateTour,deleteTour } = require("../controllers/TourController")
 const { checkLogin, CheckAdmin } = require("../middlewares/User");
-const { getAllComments, getCommentsByTour, postComment, deleteComment } = require("../controllers/ComController");
+const { getAllComments, getCommentsByTour, postComment, deleteComment, editComment } = require("../controllers/ComController");
 const router = require('express').Router();
 
 router.post('/api/sign-up', signUp);
@@ -25,6 +25,8 @@ router.delete('/api/tours/custom',CheckAdmin,deleteTour)
 router.get('/api/comment',CheckAdmin,getAllComments)
 router.get('/api/tours/comment',checkLogin,getCommentsByTour)
 router.post('/api/tours/comment',checkLogin,postComment)
-router.delete('/api/tours/comment/:commentId', checkLogin, deleteComment )
+router.patch('/api/tours/comment/:commentId',checkLogin, editComment)
+router.delete('/api/tours/comment/:commentId', checkLogin, deleteComment)
+
 module.exports = router
   
