@@ -1,7 +1,7 @@
 const Tours = require("../models/Tours")
 const { JWT_PASS } = process.env
 const jwt = require('jsonwebtoken');
-const fs = require('fs')
+const fs = require('fs');
 const path = require('path');
 const multer = require('multer');
 const storage = multer.diskStorage({
@@ -103,4 +103,24 @@ exports.deleteTour = async (req, res) => {
         res.status(500).json({ message: "Server error", error });
     }
 }
+exports.changeThumbnail =  async (req, res) => {
+    try {
+        const tourId = req.body.tourId;
+        const existingTour = await Tours.findById(tourId);
+        const oldThumbnailPath = existingTour.thumbnail;
+        if (!existingTour) {
+            return res.status(404).json({ message: "Tour not found" });
+        }
 
+        // Nếu có ảnh thumbnail cũ, xóa nó
+        if (existingTour.thumbnail) {
+            await fs.unlink(oldThumbnailPath);
+            existingTour.thumbnail = req.file.path;
+            await existingTour.save();
+
+            res.status(200).json({ message: "Thumbnail updated successfully", tour: existingTour });
+        }
+    } catch (error) {
+        res.status(500).json({ message: "Server error", error });
+    }
+}
