@@ -3,7 +3,7 @@ const mongoose = require("../config/mongoose");
 
 const bookingSchema = new mongoose.Schema({
     idTour: {
-        type: Schema.Types.ObjectId, 
+        type: mongoose.Schema.Types.ObjectId, 
         ref: 'Tour', 
         required: true
     },
@@ -16,7 +16,7 @@ const bookingSchema = new mongoose.Schema({
         required: true 
     },
     idUser: { 
-        type: Schema.Types.ObjectId, 
+        type: mongoose.Schema.Types.ObjectId, 
         ref: 'User', 
         required: true 
     },

@@ -1,0 +1,17 @@
+.SignUpPage-container {
+    background: white;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    .SignUpForm{
+        width: 30%;
+        padding: 24px 36px;
+        border-radius: 20px;
+        box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+        .container {
+
+        }
+    }
+}

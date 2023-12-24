@@ -1,31 +1,5 @@
 const Booking = require("../models/Booking")
-const { JWT_PASS } = process.env
-const jwt = require('jsonwebtoken');
-const fs = require('fs')
-const path = require('path');
-const multer = require('multer');
-const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-      cb(null, './publics/uploads/avatar');
-    },
-    filename: function (req, file, cb) {
-      const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9) + path.extname(file.originalname);
-      cb(null, file.fieldname + '-' + uniqueSuffix);
-    }
-})
-exports.getBookings = async (req, res) => {
-    try {
-        const userId = req.user._id;
-        if (req.user.role !== 2) {
-            const userBookings = await Booking.find({ idUser: userId });
-            return res.status(200).json({ message: 'User bookings retrieved successfully', bookings: userBookings });
-        }
-        const allBookings = await Booking.find();
-        res.status(200).json({ message: 'All bookings retrieved successfully', bookings: allBookings });
-    } catch (error) {
-        res.status(500).json({ message: 'Server error', error });
-    }
-}
+
 exports.newBooking  = async (req, res) => {
     try {
         const { tourId, price ,startDate } = req.body;

@@ -1,25 +1,6 @@
 const Tours = require("../models/Tours")
-const { JWT_PASS } = process.env
-const jwt = require('jsonwebtoken');
-const fs = require('fs')
-const path = require('path');
-const multer = require('multer');
-const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-      cb(null, './publics/uploads/avatar');
-    },
-    filename: function (req, file, cb) {
-      const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9) + path.extname(file.originalname);
-      cb(null, file.fieldname + '-' + uniqueSuffix);
-    }
-})
 
-exports.upload = multer({ storage: storage , 
-    fileFilter: function(req, file, cb){
-        if(!file.mimetype.includes('image')) return cb(new Error('I don\'t have a clue!'))
 
-        cb(null, true)
-}})
 exports.getAllTours = async (req, res) => {
     try {
         const tours = await Tours.find();
