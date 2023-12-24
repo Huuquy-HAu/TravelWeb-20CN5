@@ -103,7 +103,7 @@ exports.deleteTour = async (req, res) => {
         res.status(500).json({ message: "Server error", error });
     }
 }
-exports.changeThumbnail =  async (req, res) => {
+exports.changeThumbnail = async (req, res) => {
     try {
         const tourId = req.body.tourId;
         const existingTour = await Tours.findById(tourId);
@@ -111,8 +111,6 @@ exports.changeThumbnail =  async (req, res) => {
         if (!existingTour) {
             return res.status(404).json({ message: "Tour not found" });
         }
-
-        // Nếu có ảnh thumbnail cũ, xóa nó
         if (existingTour.thumbnail) {
             await fs.unlink(oldThumbnailPath);
             existingTour.thumbnail = req.file.path;
