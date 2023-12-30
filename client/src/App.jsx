@@ -10,6 +10,12 @@ import NotFoundPage from './modules/notFound/page/NotFoundPage'
 import Home from './modules/home/components/Home'
 import PrivateRoute from './modules/auth/components/PrivateRoute'
 import ProtectedRoute from './modules/auth/components/ProtectedRoute'
+import UserPage from './modules/user/page/UserPage'
+import UserProfile from './modules/user/components/UserProfile'
+import UserMenu from './modules/user/components/UserMenu'
+import AdminPage from './modules/admin/page/AdminPage'
+import AllTour from './modules/admin/components/AllTour'
+import AddTour from './modules/admin/components/AddTour'
 
 function App() {
 
@@ -28,6 +34,14 @@ function App() {
           <Route path={ROUTES.home} element={<ProtectedRoute />}>
             <Route path={ROUTES.home} element={<HomePage />} >
               <Route path={ROUTES.home} element={<Home />} />
+            </Route>
+            <Route path={ROUTES.user} element={<UserPage />}>
+              <Route path={ROUTES.user} element={<UserProfile />} />
+            </Route>
+
+            <Route path={ROUTES.admin} element={<AdminPage />}>
+              <Route path={ROUTES.allTour} element={<AllTour />} />
+              <Route path={ROUTES.addTour} element={<AddTour />} />
             </Route>
           </Route>
 

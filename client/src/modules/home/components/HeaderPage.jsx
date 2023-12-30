@@ -20,7 +20,7 @@ function HeaderPage() {
     {
       key: '1',
       label: (
-        <a target="_blank" onClick={() => { nav('./user') }}>
+        <a target="_blank" onClick={() => { nav('/user') }}>
           Thông tin cá nhân
         </a>
       ),
@@ -28,7 +28,7 @@ function HeaderPage() {
     {
       key: '2',
       label: (
-        <a target="_blank" onClick={() => { nav('./change-password') }}>
+        <a target="_blank" onClick={() => { nav('/change-password') }}>
           Đổi mật khẩu
         </a>
       ),
@@ -36,7 +36,7 @@ function HeaderPage() {
     {
       key: '3',
       label: (
-        <a target="_blank" onClick={() => { nav('./booking') }}>
+        <a target="_blank" onClick={() => { nav('/booking') }}>
           Tất cả lịch booking
         </a>
       ),
@@ -50,7 +50,7 @@ function HeaderPage() {
         <a
           target="_blank"
           onClick={() => {
-            nav('./sign-in')
+            nav('/sign-in')
             localStorage.removeItem('TravelAccount')
             Cookies.remove('TravelAccount')
             message.success('Đăng xuất thành công', 2)
@@ -66,7 +66,7 @@ function HeaderPage() {
       {
         key: '4',
         label: (
-          <a target="_blank" onClick={() => { nav('./admin') }}>
+          <a target="_blank" onClick={() => { nav('/admin') }}>
             Trang quản trị
           </a>
         ),
@@ -85,7 +85,7 @@ function HeaderPage() {
           <Button
             type="text"
             icon={<HomeOutlined />}
-            onClick={() => { { nav('./') } }}
+            onClick={() => { { nav('/') } }}
           >
             Trang chủ
           </Button>
@@ -94,7 +94,7 @@ function HeaderPage() {
           <Button
             type="text"
             icon={<SearchOutlined />}
-            onClick={() => { { nav('./search') } }}
+            onClick={() => { { nav('/search') } }}
           >
             Tìm kiếm
           </Button>

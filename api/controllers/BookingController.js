@@ -1,8 +1,8 @@
 const Booking = require("../models/Booking")
 
-exports.newBooking  = async (req, res) => {
+exports.newBooking = async (req, res) => {
     try {
-        const { tourId, price ,startDate } = req.body;
+        const { tourId, price, startDate } = req.body;
         const userId = req.user._id;
         const existingBooking = await Booking.findOne({
             idTour: tourId,
@@ -74,4 +74,16 @@ exports.cancelBooking = async (req, res) => {
     } catch (error) {
         res.status(500).json({ message: "Server error", error });
     }
+}
+
+exports.getAllBooking = async (req, res) => {
+
+}
+
+exports.getOneBooking = async (req, res) => {
+
+}
+
+exports.getBookingForUser = async (req, res) => {
+
 }

@@ -30,7 +30,7 @@ const tourSchema = new mongoose.Schema({
     }, // Địa điểm đến của tour
     active: { 
         type: Boolean, 
-        default: true 
+        default: false 
     }, // Trạng thái hoạt động (mặc định là true)
     schedule: { 
         type: String, 
