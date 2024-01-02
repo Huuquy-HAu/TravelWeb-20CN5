@@ -16,6 +16,7 @@ import UserMenu from './modules/user/components/UserMenu'
 import AdminPage from './modules/admin/page/AdminPage'
 import AllTour from './modules/admin/components/AllTour'
 import AddTour from './modules/admin/components/AddTour'
+import AllBooking from './modules/admin/components/AllBooking'
 
 function App() {
 
@@ -42,6 +43,7 @@ function App() {
             <Route path={ROUTES.admin} element={<AdminPage />}>
               <Route path={ROUTES.allTour} element={<AllTour />} />
               <Route path={ROUTES.addTour} element={<AddTour />} />
+              <Route path={ROUTES.allBooking} element={<AllBooking />} />
             </Route>
           </Route>
 

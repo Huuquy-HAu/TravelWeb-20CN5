@@ -5,15 +5,15 @@ import '../scss/AdminPage.css'
 import { UserData } from '../../auth/redux/UserReducer'
 import AdminMenu from '../components/AdminMenu'
 import logoImgage2 from '../../../img/LogoProject2-removebg-preview.png';
+import { BASE_URL } from '../../../config/api'
 
 function AdminPage() {
     const User = useSelector(UserData)
 
   let link = User.avatar
 
-  const domain = 'http://localhost:4000/'
   if (!link.startsWith('https')) {
-    link = domain + link
+    link = BASE_URL + link
   }
   console.log(User.avatar);
 

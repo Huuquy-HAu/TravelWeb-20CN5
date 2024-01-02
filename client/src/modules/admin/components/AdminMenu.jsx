@@ -23,7 +23,7 @@ const items = [
         getItem(<Link to={'/admin/tour/add-tour'}>Thêm Tour</Link>, '6'),
     ]),
     getItem('Quản lí đơn hàng', 'sub3', <SettingOutlined />, [
-        getItem(<Link to={'/admin/order'}>Tất cả đơn đặt Tour</Link>, '8'),
+        getItem(<Link to={'/admin/booking'}>Tất cả đơn đặt Tour</Link>, '8'),
     ]),
     getItem('Quản lí hồ sơ', 'sub4', <SettingOutlined />, [
         getItem(<Link to={'/user'}>Trang cá nhân</Link>, '7'),

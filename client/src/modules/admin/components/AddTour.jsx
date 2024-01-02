@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Button, Checkbox, Form, Input, Upload } from 'antd';
+import { Button, Checkbox, Form, Input, Upload, message } from 'antd';
 import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
 import { DatePicker, Space } from 'antd';
 import District from './District';
@@ -54,9 +54,12 @@ function AddTour() {
     dataFile.append('destination' , values.destination)
     dataFile.append('schedule' , values.schedule)
     console.log(dataFile);
-    const res = await postAPI('api/tour', dataFile)
-
-    console.log(59,res);
+    try {
+      const res = await postAPI('api/tour', dataFile)
+      message.success("Thành Công")
+    } catch (error) {
+      message.error('Thất Bại')
+    }
   };
   const onFinishFailed = (errorInfo) => {
     console.log('Failed:', errorInfo);
@@ -144,7 +147,7 @@ function AddTour() {
           form={form}
         >
           <Form.Item
-            label="Tên "
+            label="Tên của chuyến đi "
             name="name"
             rules={[
               {
@@ -255,7 +258,7 @@ function AddTour() {
             </Upload>
           </Form.Item>
 
-
+{/* 
           <Form.Item
             label="Ảnh chi tiết "
             name="images"
@@ -304,7 +307,7 @@ function AddTour() {
             </div>
 
           </Form.Item>
-
+ */}
 
           <Form.Item
             wrapperCol={{

@@ -3,7 +3,10 @@ const { checkLogin, CheckAdmin } = require("../middlewares/User");
 const router = require('express').Router();
 
 
-router.get('/api/booking', checkLogin, CheckAdmin , getAllBooking);
-router.get('/api/booking/:idUser', checkLogin , getBookingForUser);
-router.post('/api/booking', checkLogin , CheckAdmin , newBooking);
-router.patch('/api/booking/:idBooking', checkLogin, ApproveBooking);
+router.get('/', checkLogin, CheckAdmin , getAllBooking);
+router.get('/:idUser', checkLogin , getBookingForUser);
+router.post('/', checkLogin , CheckAdmin , newBooking);
+router.patch('/:idBooking', checkLogin, ApproveBooking);
+
+
+module.exports = router

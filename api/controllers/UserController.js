@@ -67,10 +67,10 @@ exports.getInforOneUser = async (req, res) => {
 exports.getAllUserOrGetOne = async (req, res) => {
     try {
 
-        const id = req.params.id;
-        if (!id) return res.status(400).json({ message: "Not id !!" })
+        const role = req.params.role;
+        if (!role) return res.status(400).json({ message: "Not login !!" })
 
-        if (id == 0) {
+        if (role == 2) {
             const user = await User.find();
             return res.status(200).json({ status: 200, data: user })
         } else {

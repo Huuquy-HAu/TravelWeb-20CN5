@@ -49,6 +49,7 @@ exports.uploadTourImg = multer({
 
 exports.getAllTours = async (req, res) => {
     try {
+
         const tours = await Tours.find();
         res.status(200).json({ status: 200, data: tours });
     } catch (error) {
@@ -78,32 +79,21 @@ exports.CreateTour = async (req, res) => {
 }
 exports.updateTour = async (req, res) => {
     try {
-        const userId = req.user._id;
-        const user = await User.findById(userId);
-        if (!user || user.role !== 2) {
-            return res.status(403).json({ message: "Permission denied" });
+        const tourId = req.params.id; // Lấy ID của tour cần cập nhật từ URL
+    
+        // Kiểm tra xem có file avatar được tải lên không
+        if (req.file) {
+          req.body.thumbnail = req.file.path;
         }
-
-        const { tourId, name, thumbnail, originalPrice, discountPercentage, images, destination, active, schedule } = req.body;
-        const existingTour = await Tours.findById(tourId);
-        if (!existingTour) {
-            return res.status(404).json({ message: "Tour not found" });
-        }
-        existingTour.name = name || existingTour.name;
-        existingTour.thumbnail = thumbnail || existingTour.thumbnail;
-        existingTour.originalPrice = originalPrice || existingTour.originalPrice;
-        existingTour.discountPercentage = discountPercentage || existingTour.discountPercentage;
-        existingTour.images = images || existingTour.images;
-        existingTour.destination = destination || existingTour.destination;
-        existingTour.active = active || existingTour.active;
-        existingTour.schedule = schedule || existingTour.schedule;
-
-        await existingTour.save();
-
-        res.status(200).json({ message: "Tour updated successfully", tour: existingTour });
-    } catch (error) {
-        res.status(500).json({ message: "Server error", error });
-    }
+    
+        const updatedTour = await Tours.findByIdAndUpdate(tourId, req.body, {
+          new: true, // Trả về tài liệu đã cập nhật
+        });
+    
+        res.status(200).json({ message: "Cập nhật tour thành công", status: 200, updatedTour });
+      } catch (error) {
+        res.status(400).json({ message: "Cập nhật tour không thành công", error }); // Sử dụng mã lỗi 400 cho lỗi cập nhật
+      }
 }
 exports.deleteTour = async (req, res) => {
     try {
@@ -122,6 +112,19 @@ exports.deleteTour = async (req, res) => {
         await existingTour.remove();
 
         res.status(200).json({ message: "Tour deleted successfully" });
+    } catch (error) {
+        res.status(500).json({ message: "Server error", error });
+    }
+}
+
+exports.changeStatusTour = async (req, res) => {
+    try {
+        const { idStatus, active } = req.query
+        if (idStatus && active) {
+            const tours = await Tours.updateOne({ _id: idStatus }, { active: active })
+            return res.status(200).json({ status: 200, data: tours });
+        }
+        res.status(500).json({ message: "Invalite id , active" });
     } catch (error) {
         res.status(500).json({ message: "Server error", error });
     }

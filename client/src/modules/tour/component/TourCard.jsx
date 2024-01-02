@@ -1,36 +1,74 @@
 import React from 'react'
 import '../scss/TourCard.scss'
 import { useNavigate } from 'react-router'
+import { postAPI } from '../../../config/api'
+import { message } from 'antd'
 
-function TourCard() {
+function TourCard(props) {
 
   const nav = useNavigate()
+  const { dataCard } = props
+
+  function formatCurrency(amount) {
+    // Chuyển đổi số thành chuỗi và tách phần nguyên và phần thập phân (nếu có)
+    const [integerPart, decimalPart] = amount.toString().split('.');
+
+    // Định dạng phần nguyên bằng cách thêm dấu phân cách mỗi ba số 0
+    const formattedIntegerPart = integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+
+    // Kết hợp phần nguyên đã định dạng và phần thập phân (nếu có)
+    const formattedAmount = decimalPart ? `${formattedIntegerPart}.${decimalPart}` : formattedIntegerPart;
+
+    return formattedAmount;
+  }
+
+  const CreateTour = async () => {
+    try {
+      const res = await postAPI('/api/booking', {
+        tourId: dataCard?._id,
+        price: formatCurrency(dataCard.originalPrice * dataCard.discountPercentage == 0 ? 1: (dataCard.discountPercentage / 100)),
+        startDate: dataCard.schedule.split('-')[0]
+      })
+
+      console.log(res);
+      message.success(res?.data.message);
+      a
+    } catch (error) {
+      message.error(error?.response.data.message)
+      console.log(error);
+    }
+  }
 
   return (
     <div className='tour-card-component'>
       <div className="tour-img">
-        <img src="https://minio.fares.vn/mixivivu-dev/tour/du-thuyen-heritage-binh-chuan-cat-ba/thumbnail/no53ab0y526yl825.webp" alt="" />
+        <img src={dataCard.thumbnail ? dataCard.thumbnail : 'https://minio.fares.vn/mixivivu-dev/tour/du-thuyen-heritage-binh-chuan-cat-ba/thumbnail/no53ab0y526yl825.webp'} alt="" />
       </div>
       <div className="tour-content-component">
         <div className="header-component">
           <span>
-            Phú Quốc
+            {dataCard.destination ? dataCard.destination.split(',')[2] : 'Đang cập nhật'}
           </span>
         </div>
         <div className="content-component">
-          Tour Phú Quốc 2N2Đ 
+          {dataCard.name ? dataCard.name : "Đang cập nhật . . ."}
+        </div>
+        <div className="chedule-action">
+          Lịch trình:  {dataCard.schedule}
         </div>
       </div>
       <div className="tour-action">
-        <div className="left-action">2,000,000Đ</div>
+        <div className="left-action">{formatCurrency(dataCard.originalPrice * dataCard.discountPercentage / 100)} VNĐ</div>
         <div className="right-action">
           <button
-            onClick={() => {nav('./tour/'+1)}}
+            onClick={() => {
+            CreateTour()
+             }}
           >
             Đặt Ngay
           </button>
-        </div>  
-      </div>  
+        </div>
+      </div>
     </div>
   )
 }

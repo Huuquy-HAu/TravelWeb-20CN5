@@ -9,5 +9,6 @@ export const ROUTES = {
     user_tour:'/user/tour',
     admin:"/admin",
     allTour:"/admin/tour",
-    addTour:'/admin/tour/add-tour'
+    addTour:'/admin/tour/add-tour',
+    allBooking:'/admin/booking'
 }

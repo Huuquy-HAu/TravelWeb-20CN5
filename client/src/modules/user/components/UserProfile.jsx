@@ -2,7 +2,7 @@ import React from 'react'
 import { Button, Upload, Col, Row, Modal, Checkbox, Form, Input, DatePicker, Space, Select, message } from 'antd';
 import { useState } from 'react';
 import { useEffect } from 'react';
-import { getAPI, patchAPI, postAPI } from '../../../config/api'
+import { BASE_URL, getAPI, patchAPI, postAPI } from '../../../config/api'
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import '../scss/UserProfile.css'
@@ -52,7 +52,6 @@ function UserProfile() {
     const [form] = Form.useForm();
     let linkk = ''
 
-    const domain = 'http://localhost:4000/'
 
 
 
@@ -88,7 +87,7 @@ function UserProfile() {
             }
 
             if (!linkk.startsWith('https')) {
-                linkk = domain + linkk
+                linkk = BASE_URL + linkk
             }
             console.log(linkk);
 

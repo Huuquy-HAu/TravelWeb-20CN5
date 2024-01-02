@@ -10,8 +10,9 @@ exports.newBooking = async (req, res) => {
             startDate: startDate,
         });
 
-        if (existingBooking) {
-            return res.status(400).json({ message: "User already booked this tour" });
+        console.log(existingBooking);
+        if (existingBooking && existingBooking.isApproved == 1) {
+            return res.status(400).json({ message: "Bạn đã đặt chuyến đi này rồi , Hãy chờ xác nhận của hệ thống" });
         }
         const newBooking = await Booking.create({
             idTour: tourId,
@@ -20,7 +21,7 @@ exports.newBooking = async (req, res) => {
             startDate: startDate,
             isApproved: 1,
         });
-        res.status(200).json({ message: "Booking successful", booking: newBooking });
+        res.status(200).json({ message: "Đặt chuyến đi thành công , hãy chờ xác nhận", booking: newBooking });
     } catch (error) {
         res.status(500).json({ message: "Server error", error });
     }
@@ -28,18 +29,25 @@ exports.newBooking = async (req, res) => {
 exports.ApproveBooking = async (req, res) => {
     try {
         const { bookingId } = req.params;
-        const existingBooking = await Booking.findById(bookingId);
-        if (!existingBooking) {
-            return res.status(404).json({ message: 'Booking not found' });
-        }
-        if (existingBooking.isApproved !== 1) {
-            return res.status(400).json({ message: 'Booking is not pending approval' });
-        }
-        if (req.user.role !== 2) {
-            return res.status(403).json({ message: 'Unauthorized. Only admins can approve bookings' });
-        }
+        const { statusBooking, idUser , idTour } = req.body;
 
-        await bookingId.findByIdAndUpdate(bookingId, { isApproved: 2 });
+        const existingBooking = await Booking.findOneAndUpdate(
+            {
+                idTour: idTour,
+                idUser: idUser
+            },
+            { $set: { isApproved: statusBooking } },
+            { new: true } // để nhận đối tượng đã cập nhật
+        );
+        console.log(existingBooking);
+        // if (!existingBooking) {
+        //     return res.status(404).json({ message: 'Không tìm thấy đợt đặt' });
+        // }
+        // if (existingBooking.isApproved !== 1) {
+        //     return res.status(400).json({ message: 'Chỉ có thể thao tác khi tour đang chờ duyệt' });
+        // }
+
+        // await bookingId.findByIdAndUpdate(bookingId, { isApproved: statusBooking });
 
         res.status(200).json({ message: 'Booking approved successfully' });
     } catch (error) {
@@ -77,7 +85,13 @@ exports.cancelBooking = async (req, res) => {
 }
 
 exports.getAllBooking = async (req, res) => {
-
+    try {
+        const booking = await Booking.find().populate('idTour').populate('idUser')
+        return res.status(200).json({ message: 'oke', data: booking })
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({ message: 'Server Error', error })
+    }
 }
 
 exports.getOneBooking = async (req, res) => {

@@ -8,6 +8,7 @@ import axios from 'axios';
 import { useSelector } from 'react-redux';
 import { UserData } from '../../auth/redux/UserReducer';
 import { ROUTES } from '../../../config/routes';
+import { BASE_URL } from '../../../config/api';
 
 
 
@@ -40,8 +41,6 @@ function MenuProfile() {
     const User = useSelector(UserData)
 
 
-    const domain = 'http://localhost:4000/'
-
     let link = User.avatar
 
     const onOpenChange = (keys) => {
@@ -56,7 +55,7 @@ function MenuProfile() {
 
 
     if (!link.startsWith('https')) {
-        link = domain + link
+        link = BASE_URL + link
     }
 
     return (
