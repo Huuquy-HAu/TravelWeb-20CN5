@@ -1,12 +1,47 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import SearchComponent from './SearchComponent'
 import TourCard from '../../tour/component/TourCard'
+import { BASE_URL, getAPI } from '../../../config/api';
 
 function Home() {
 
-    const array = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10 , 11 , 12];
+    const array = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+    const [listData, setListData] = useState([])
+    const [count , setCount] =useState(0)
 
-    
+
+    const getAllTour = async (req, res) => {
+        try {
+            const res = await getAPI('/api/tour');
+            console.log(res);
+            const newData = []
+            res?.data.data.map((value, index) => {
+                newData.push(
+                    {
+                        _id: value._id,
+                        name: value.name,
+                        destination: value.destination,
+                        originalPrice: value.originalPrice,
+                        discountPercentage: value.discountPercentage,
+                        schedule: value.schedule,
+                        active: value.active,
+                        thumbnail: value.thumbnail.startsWith('https') ? value.thumbnail : BASE_URL + value.thumbnail
+                    }
+                )
+            })
+            setListData(newData)
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+
+    useEffect(() => {
+        getAllTour()
+    }, [count])
+
+
+
 
     return (
         <div className='Home-container'>
@@ -38,13 +73,15 @@ function Home() {
                     </div>
                 </div>
                 <div className="nav-tour">
-                        {
-                            array.map((value) => {
-                                return(
-                                    <TourCard/>
+                    {
+                        listData?.map((value) => {
+                            if(value.active == 'show'){
+                                return (
+                                    <TourCard dataCard={value} />
                                 )
-                            })
-                        }
+                            }
+                        })
+                    }
                 </div>
             </div>
         </div>

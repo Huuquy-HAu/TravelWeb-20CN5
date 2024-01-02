@@ -6,20 +6,22 @@ const path = require('path');
 const multer = require('multer');
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-      cb(null, './publics/uploads/avatar');
+        cb(null, './publics/uploads/avatar');
     },
     filename: function (req, file, cb) {
-      const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9) + path.extname(file.originalname);
-      cb(null, file.fieldname + '-' + uniqueSuffix);
+        const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9) + path.extname(file.originalname);
+        cb(null, file.fieldname + '-' + uniqueSuffix);
     }
 })
 
-exports.upload = multer({ storage: storage , 
-    fileFilter: function(req, file, cb){
-        if(!file.mimetype.includes('image')) return cb(new Error('I don\'t have a clue!'))
+exports.upload = multer({
+    storage: storage,
+    fileFilter: function (req, file, cb) {
+        if (!file.mimetype.includes('image')) return cb(new Error('I don\'t have a clue!'))
 
         cb(null, true)
-}})
+    }
+})
 
 exports.signUp = async (req, res) => {
     try {
@@ -47,7 +49,7 @@ exports.signIn = async (req, res) => {
         delete checkAccount._doc.notifications;
         checkAccount._doc.token = token
 
-        res.status(200).json({ message: 'login success', data:checkAccount })
+        res.status(200).json({ message: 'login success', data: checkAccount })
     } catch (error) {
         res.status(500).json({ message: 'server error', error })
     }
@@ -65,10 +67,10 @@ exports.getInforOneUser = async (req, res) => {
 exports.getAllUserOrGetOne = async (req, res) => {
     try {
 
-        const id = req.params.id;
-        if (!id) return res.status(400).json({ message: "Not id !!" })
+        const role = req.params.role;
+        if (!role) return res.status(400).json({ message: "Not login !!" })
 
-        if (id == 0) {
+        if (role == 2) {
             const user = await User.find();
             return res.status(200).json({ status: 200, data: user })
         } else {
@@ -82,15 +84,28 @@ exports.getAllUserOrGetOne = async (req, res) => {
 
 exports.changePassword = async (req, res) => {
     try {
-        const password = req.body.password;
+        const { oldPassword, newPassword } = req.body;
 
-        if (!password) return res.status(400).json({ message: "Requied Password" })
+        if (!oldPassword || !newPassword) {
+            return res.status(400).json({ message: "Old password and new password are required" });
+        }
 
-        const user = await User.findByIdAndUpdate(req.user._id, { password: password })
+        // Kiểm tra old password
+        const user = await User.findById(req.user._id);
+        if (!user) {
+            return res.status(400).json({ message: "User not found" });
+        }
 
-        if (!user) return res.status(400).json({ message: "Change password error" })
+        const isPasswordValid = await user.comparePassword(oldPassword);
+        if (!isPasswordValid) {
+            return res.status(400).json({ message: "Old password is incorrect" });
+        }
 
-        return res.status(200).json({ status: 200, message: "Change password suscces" })
+        // Nếu old password đúng, thì cập nhật password mới
+        user.password = newPassword;
+        await user.save();
+
+        return res.status(200).json({ status: 200, message: "Change password success" });
     } catch (error) {
         return res.status(500).json({ message: "server error", error })
     }
@@ -110,17 +125,17 @@ exports.changeUserInfor = async (req, res) => {
 exports.changeAvatar = async (req, res) => {
     console.log(req.file);
     try {
-        if(!req.file) return res.status(400).json({message: 'please choose an avatar'});
-        
-        const user = await User.findOne({_id: req.user._id});
+        if (!req.file) return res.status(400).json({ message: 'please choose an avatar' });
 
-        if(!user.avatar.startsWith('http')){
-            fs.unlink(user.avatar, () => {return})
+        const user = await User.findOne({ _id: req.user._id });
+
+        if (!user.avatar.startsWith('http')) {
+            fs.unlink(user.avatar, () => { return })
         }
 
-        await User.updateOne({_id: req.user._id}, {avatar: req.file.path});
-        res.status(200).json({message: 'change avatar ok'})
+        await User.updateOne({ _id: req.user._id }, { avatar: req.file.path });
+        res.status(200).json({ message: 'change avatar ok' })
     } catch (error) {
-        res.status(500).json({message: 'server error', error})
+        res.status(500).json({ message: 'server error', error })
     }
 }

@@ -1,6 +1,6 @@
 const mongoose = require("../config/mongoose");
 
-const commentSchema = new mongoose.Schema({
+const commentSchema = new Schema({
     userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
     tourId: { type: mongoose.Schema.Types.ObjectId, ref: 'Tour', required: true },
     content: { type: String, required: true },

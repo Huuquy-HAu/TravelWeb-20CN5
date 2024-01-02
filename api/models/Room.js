@@ -1,6 +1,6 @@
 const mongoose = require("../config/mongoose");
 
-const addressSchema = new Schema({
+const addressSchema = new mongoose.Schema({
     specificAddress: { type: String, required: true }, // Địa chỉ cụ thể
     city: { type: String, required: true }, // Tỉnh/Thành phố
     district: { type: String, required: true }, // Quận/Huyện
