@@ -46,6 +46,6 @@ const userSchema = new mongoose.Schema({
     notifications: [notificationSchema]
 });
 
-const UserModel = mongoose.model("User", userSchema);
+const UserModel = mongoose.model("users", userSchema);
 
 module.exports = UserModel;

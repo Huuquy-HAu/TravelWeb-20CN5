@@ -7,6 +7,7 @@ import { SearchOutlined, HomeOutlined, MenuOutlined } from '@ant-design/icons';
 import Cookies from 'js-cookie';
 import { useSelector } from 'react-redux';
 import { UserData } from '../../auth/redux/UserReducer';
+import { BASE_URL } from '../../../config/api';
 
 
 function HeaderPage() {
@@ -14,13 +15,12 @@ function HeaderPage() {
   const User = useSelector(UserData)
 
   const url = 'https://scontent.fhan14-3.fna.fbcdn.net/v/t39.30808-6/346485998_786097866452068_4022572448692318652_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=9c7eae&_nc_ohc=HharkQeOwTsAX_Z2lgH&_nc_ht=scontent.fhan14-3.fna&oh=00_AfCka2pkdjBaoUXyKP8SZ4L1Hn_IbLFNb_gIsafkEn_ZOQ&oe=657C702A';
-  const domain = 'http://localhost:4000/'
 
   const items = [
     {
       key: '1',
       label: (
-        <a target="_blank" onClick={() => { nav('./user') }}>
+        <a target="_blank" onClick={() => { nav('/user') }}>
           Thông tin cá nhân
         </a>
       ),
@@ -28,7 +28,7 @@ function HeaderPage() {
     {
       key: '2',
       label: (
-        <a target="_blank" onClick={() => { nav('./change-password') }}>
+        <a target="_blank" onClick={() => { nav('/change-password') }}>
           Đổi mật khẩu
         </a>
       ),
@@ -36,7 +36,7 @@ function HeaderPage() {
     {
       key: '3',
       label: (
-        <a target="_blank" onClick={() => { nav('./booking') }}>
+        <a target="_blank" onClick={() => { nav('/booking') }}>
           Tất cả lịch booking
         </a>
       ),
@@ -50,7 +50,7 @@ function HeaderPage() {
         <a
           target="_blank"
           onClick={() => {
-            nav('./sign-in')
+            nav('/sign-in')
             localStorage.removeItem('TravelAccount')
             Cookies.remove('TravelAccount')
             message.success('Đăng xuất thành công', 2)
@@ -66,7 +66,7 @@ function HeaderPage() {
       {
         key: '4',
         label: (
-          <a target="_blank" onClick={() => { nav('./admin') }}>
+          <a target="_blank" onClick={() => { nav('/admin') }}>
             Trang quản trị
           </a>
         ),
@@ -85,7 +85,7 @@ function HeaderPage() {
           <Button
             type="text"
             icon={<HomeOutlined />}
-            onClick={() => { { nav('./') } }}
+            onClick={() => { { nav('/') } }}
           >
             Trang chủ
           </Button>
@@ -94,7 +94,7 @@ function HeaderPage() {
           <Button
             type="text"
             icon={<SearchOutlined />}
-            onClick={() => { { nav('./search') } }}
+            onClick={() => { { nav('/search') } }}
           >
             Tìm kiếm
           </Button>
@@ -118,7 +118,7 @@ function HeaderPage() {
             {User ? User.username : "Loading . . ."}
 
             <Avatar
-              src={<img src={User ? domain + User.avatar : url} alt="avatar" />}
+              src={<img src={User ? BASE_URL + User.avatar : url} alt="avatar" />}
               style={{
                 marginLeft: '10px',
               }}

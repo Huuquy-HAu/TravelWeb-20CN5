@@ -4,6 +4,8 @@ const app = express();
 var cookieParser = require('cookie-parser');
 const path = require('path');
 const userRoutes = require("./routes/userRoutes");
+const tourRoutes = require("./routes/tourRoute");
+const bookingRoutes = require("./routes/bookingRoute");
 require('dotenv').config()
 
 app.use(express.json())
@@ -19,6 +21,8 @@ app.use(express.static('public'));
 
 
 app.use("/", userRoutes)
+app.use("/api/tour",tourRoutes)
+app.use('/api/booking',bookingRoutes)
 
 
 app.listen(4000)

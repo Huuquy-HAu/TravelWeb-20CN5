@@ -29,8 +29,9 @@ const tourSchema = new mongoose.Schema({
         required: true 
     }, // Địa điểm đến của tour
     active: { 
-        type: Boolean, 
-        default: true 
+        type: String, 
+        enum: ["hide", "show"],
+        default: 'show'
     }, // Trạng thái hoạt động (mặc định là true)
     schedule: { 
         type: String, 
@@ -38,6 +39,6 @@ const tourSchema = new mongoose.Schema({
     }, // Lịch trình của tour
 });
 
-const Tour = mongoose.model('Tour', tourSchema);
+const Tour = mongoose.model('tours', tourSchema);
 
 module.exports = Tour;

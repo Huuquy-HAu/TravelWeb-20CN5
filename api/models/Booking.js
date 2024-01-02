@@ -1,23 +1,26 @@
 const mongoose = require("../config/mongoose");
+const Schema = mongoose.Schema;
+const ObjectId = Schema.ObjectId;
+
 
 
 const bookingSchema = new mongoose.Schema({
     idTour: {
-        type: Schema.Types.ObjectId, 
-        ref: 'Tour', 
+        type: ObjectId, 
+        ref: 'tours', 
         required: true
     },
     price: { 
-        type: Number, 
+        type: String, 
         required: true 
     },
     startDate: { 
-        type: Date, 
+        type: String, 
         required: true 
     },
     idUser: { 
-        type: Schema.Types.ObjectId, 
-        ref: 'User', 
+        type: ObjectId, 
+        ref: 'users', 
         required: true 
     },
     isApproved: {
@@ -28,6 +31,6 @@ const bookingSchema = new mongoose.Schema({
 });
 
 
-const Booking = mongoose.model('Booking', bookingSchema);
+const Booking = mongoose.model('bookings', bookingSchema);
 
 module.exports = Booking;
