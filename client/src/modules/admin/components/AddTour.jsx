@@ -56,9 +56,21 @@ function AddTour() {
     console.log(dataFile);
     try {
       const res = await postAPI('api/tour', dataFile)
-      message.success("Thành Công")
+      message.open({
+        type: "success",
+        content: "Thêm mới thành công",
+        style: {
+          marginTop: '40px'
+        }
+      })
     } catch (error) {
-      message.error('Thất Bại')
+      message.open({
+        type: "error",
+        content: "Thất bại",
+        style: {
+          marginTop: '40px'
+        }
+      })
     }
   };
   const onFinishFailed = (errorInfo) => {
