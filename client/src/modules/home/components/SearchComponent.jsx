@@ -1,11 +1,17 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Input , Select } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
+import { useNavigate } from 'react-router';
 
 function SearchComponent() {
+    const [inputValue , setInputValue] = useState()
+    const [selectValue , setSelectValue] = useState()
+    const nav = useNavigate()
     const handleChange = (value) => {
         console.log(`selected ${value}`);
+        setSelectValue(value)
     };
+    
 
     return (
         <div className='SearchComponent'>
@@ -23,6 +29,9 @@ function SearchComponent() {
                     style={{
                         width: 250,
                         margin: "0 10px"
+                    }}
+                    onChange={(e) => {
+                        setInputValue(e.target.value)
                     }}
                     placeholder="Nhập tên tour Du lịch"
                     prefix={<SearchOutlined />}
@@ -58,7 +67,34 @@ function SearchComponent() {
                     ]}
                 />
 
-                <button>
+                <button
+                    onClick={() => {
+                        console.log(inputValue, selectValue);
+
+                        const query = {}
+                        if(inputValue) {
+                            query.s = inputValue
+                        }
+                        if(selectValue == 2 ){
+                            query.minprice = 1000000
+                            query.maxprice = 3000000
+                        }
+
+                        if(selectValue == 3 ){
+                            query.minprice = 3000000
+                            query.maxprice = 6000000
+                        }
+
+                        if(selectValue == 4 ){
+                            query.maxprice = 6000000
+                        }
+
+                        if(query) {
+                           return nav('/search?'+ (query.s ? 's='+query.s : '') + (query.minprice ? (query.s ? '&minprice='+query.minprice :'minprice='+query.minprice): '') + (query.maxprice ? (query.s ? '&maxprice='+query.maxprice : (query.minprice ? '&maxprice='+query.maxprice :'maxprice='+query.maxprice)): ''))
+                        }
+                        return nav('/search')
+                    }}
+                    >
                     Tìm kiếm 
                 </button>
             </div>

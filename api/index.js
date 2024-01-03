@@ -26,3 +26,6 @@ app.use('/api/booking',bookingRoutes)
 
 
 app.listen(4000)
+
+//localhost://8000/api/booking POST
+//localhost://8000/api/sign-up

@@ -10,5 +10,6 @@ export const ROUTES = {
     admin:"/admin",
     allTour:"/admin/tour",
     addTour:'/admin/tour/add-tour',
-    allBooking:'/admin/booking'
+    allBooking:'/admin/booking',
+    search:'/search'
 }

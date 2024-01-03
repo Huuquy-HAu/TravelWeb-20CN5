@@ -4,7 +4,7 @@ const { getAllTours ,CreateTour, updateTour,deleteTour } = require("../controlle
 const { checkLogin, CheckAdmin } = require("../middlewares/User");
 const router = require('express').Router();
 
-router.post('/api/sign-up', signUp);
+router.post('/api/sign-up', signUp); 
 router.post('/api/sign-in', signIn);
 router.get('/api/user', checkLogin, getInforOneUser)
 router.post('/api/user', checkLogin, changeUserInfor)

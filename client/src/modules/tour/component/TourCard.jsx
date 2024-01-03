@@ -26,7 +26,7 @@ function TourCard(props) {
     try {
       const res = await postAPI('/api/booking', {
         tourId: dataCard?._id,
-        price: formatCurrency(dataCard.originalPrice * dataCard.discountPercentage == 0 ? 1: (dataCard.discountPercentage / 100)),
+        price: formatCurrency(dataCard.originalPrice - (dataCard.originalPrice * (dataCard.discountPercentage != 0 ? (dataCard.discountPercentage / 100) : 0))),
         startDate: dataCard.schedule.split('-')[0]
       })
 

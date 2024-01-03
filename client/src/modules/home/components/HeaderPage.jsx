@@ -8,6 +8,7 @@ import Cookies from 'js-cookie';
 import { useSelector } from 'react-redux';
 import { UserData } from '../../auth/redux/UserReducer';
 import { BASE_URL } from '../../../config/api';
+import { Link } from 'react-router-dom';
 
 
 function HeaderPage() {
@@ -42,7 +43,7 @@ function HeaderPage() {
       ),
     },
 
-    
+
 
     {
       key: '5',
@@ -61,7 +62,7 @@ function HeaderPage() {
     },
   ];
 
-  if(User.role == 2){
+  if (User.role == 2) {
     items.splice(3, 0,
       {
         key: '4',
@@ -70,14 +71,16 @@ function HeaderPage() {
             Trang quản trị
           </a>
         ),
-      }, );
+      },);
   }
 
   return (
     <div className='header-page'>
       <div className="left-container">
         <div className="logo">
-          <img src={ logoImgage2 } alt="" />
+          <Link to={'/'}>
+            <img src={logoImgage2} alt="" />
+          </Link>
         </div>
       </div>
       <div className="center-container">

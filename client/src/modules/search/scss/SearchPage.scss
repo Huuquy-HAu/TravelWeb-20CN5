@@ -1,0 +1,52 @@
+.search-page-container {
+    
+    .search-page-header {
+        display: flex;
+        justify-content: center;
+        padding: 24px 48px;
+        .SearchComponent {
+            padding: 40px 24px 24px;
+            width: 1000px;
+            text-align: center;
+            border: 1px solid #eaecf0;
+            background: #fff;
+            border-radius: 32px;
+            box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+
+            .header {
+                h1 {
+                    font-size: 36px;
+                }
+            }
+
+            .description {
+                font-size: 18px;
+                color: gray;
+                margin: 10px 0;
+            }
+
+            .form {
+                margin-bottom: 10px;
+
+                button {
+                    border-radius: 4px;
+                    padding: 12px 24px;
+                    border: none;
+                    background: #77dada;
+                }
+
+                button:hover {
+                    background: #0e4f4f;
+                    color: white;
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+
+    .search-page-content {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-evenly;
+    }
+}

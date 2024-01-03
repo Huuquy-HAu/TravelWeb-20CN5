@@ -70,6 +70,7 @@
 
                 .form {
                     margin-bottom: 10px;
+
                     button {
                         border-radius: 4px;
                         padding: 12px 24px;
@@ -93,8 +94,10 @@
                 width: 100%;
                 display: flex;
                 margin-bottom: 40px;
+
                 .header-left {
                     width: 50%;
+
                     h4 {
                         font-size: 36px;
                         font-weight: 700;
@@ -103,8 +106,10 @@
                         margin: auto;
                     }
                 }
+
                 .header-right {
                     width: 50%;
+
                     p {
                         width: 500px;
                         margin: auto;
@@ -156,6 +161,77 @@
             justify-content: space-around;
             color: #667085;
             background: #1d2939;
+        }
+    }
+}
+
+
+// Responsive cho mobile
+@media (max-width: 768px) {
+    .homePage-container {
+        .header-page {
+            .center-container {
+                display: none;
+            }
+
+            .left-container {
+                .logo img {
+                    width: 240px;
+                }
+            }
+        }
+        .Home-container {
+            .banner {
+                .SearchComponent {
+                    display: none;
+                    width: 300px;
+                    bottom: 320px;
+                    padding: 40px 15px 15px;
+
+                    .header h1 {
+                        font-size: 20px;
+                    }
+
+                    .description {
+                        font-size: 12px;
+                    }
+                }
+            }
+
+            .tour-content {
+                padding: 80px 32px;
+                .header {
+                    flex-direction: column;
+
+                    .header-right {
+                        width: 100%;
+                        margin-top: 20px;
+                        p {
+                            width: auto !important;
+                        }
+                    }
+                }
+
+                .nav-tour {
+                    flex-wrap: nowrap;
+                    justify-content: center;
+                    flex-direction: column;
+                    align-items: center;
+                }
+
+            }
+        }
+
+        .footerPage-container {
+            .header-container{
+                flex-direction: column;
+                .nav-content {
+                    width: auto;
+                    img {
+                        width: 200px;
+                    }
+                }
+            }
         }
     }
 }

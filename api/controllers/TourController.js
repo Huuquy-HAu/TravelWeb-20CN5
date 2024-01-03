@@ -49,8 +49,25 @@ exports.uploadTourImg = multer({
 
 exports.getAllTours = async (req, res) => {
     try {
+        // Giải mã các tham số truy vấn từ URL
+        const { s, minprice, maxprice } = req.query;
 
-        const tours = await Tours.find();
+        // Tạo điều kiện truy vấn dựa trên các tham số truy vấn
+        const query = {};
+        if (s) {
+            // Nếu có tham số tìm kiếm theo tên
+            query.name = { $regex: new RegExp(s, 'i') };
+        }
+        if (minprice || maxprice) {
+            // Nếu có tham số giá
+            query.originalPrice = {};
+            if (minprice) query.originalPrice.$gte = parseInt(minprice);
+            if (maxprice) query.originalPrice.$lte = parseInt(maxprice);
+        }
+
+        // Thực hiện truy vấn với điều kiện tìm kiếm
+        const tours = await Tours.find(query);
+
         res.status(200).json({ status: 200, data: tours });
     } catch (error) {
         res.status(500).json({ message: 'Server error', error });

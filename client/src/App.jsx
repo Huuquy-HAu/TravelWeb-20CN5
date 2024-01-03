@@ -17,6 +17,7 @@ import AdminPage from './modules/admin/page/AdminPage'
 import AllTour from './modules/admin/components/AllTour'
 import AddTour from './modules/admin/components/AddTour'
 import AllBooking from './modules/admin/components/AllBooking'
+import SearchPage from './modules/search/page/SearchPage'
 
 function App() {
 
@@ -35,6 +36,7 @@ function App() {
           <Route path={ROUTES.home} element={<ProtectedRoute />}>
             <Route path={ROUTES.home} element={<HomePage />} >
               <Route path={ROUTES.home} element={<Home />} />
+              <Route path={ROUTES.search} element={<SearchPage />} />
             </Route>
             <Route path={ROUTES.user} element={<UserPage />}>
               <Route path={ROUTES.user} element={<UserProfile />} />
