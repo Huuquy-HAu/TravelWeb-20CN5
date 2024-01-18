@@ -4,7 +4,7 @@ const router = require('express').Router();
 
 
 router.get('/', checkLogin, CheckAdmin , getAllBooking);
-router.get('/:idUser', checkLogin , getBookingForUser);
+router.get('/user', checkLogin , getBookingForUser);
 router.post('/', checkLogin , CheckAdmin , newBooking);
 router.patch('/:idBooking', checkLogin, ApproveBooking);
 

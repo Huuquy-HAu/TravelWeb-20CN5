@@ -7,7 +7,9 @@ import { postAPIsignIn } from '../../../config/api';
 
 function SignUpPage() {
   const nav = useNavigate()
+  const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,}$/;
   const onFinish = async (values) => {
+    console.log(values);
     try {
       const res = await postAPIsignIn('api/sign-up', values)
       if (res?.status == 200) {

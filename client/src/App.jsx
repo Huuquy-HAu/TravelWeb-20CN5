@@ -18,6 +18,8 @@ import AllTour from './modules/admin/components/AllTour'
 import AddTour from './modules/admin/components/AddTour'
 import AllBooking from './modules/admin/components/AllBooking'
 import SearchPage from './modules/search/page/SearchPage'
+import ChangePassword from './modules/user/components/ChangePassword'
+import AllBookingForUser from './modules/user/components/AllBookingForUser'
 
 function App() {
 
@@ -40,6 +42,9 @@ function App() {
             </Route>
             <Route path={ROUTES.user} element={<UserPage />}>
               <Route path={ROUTES.user} element={<UserProfile />} />
+              <Route path={ROUTES.user_change_password} element={<ChangePassword />} />
+              <Route path={ROUTES.user_tour} element={<AllBookingForUser />} />
+
             </Route>
 
             <Route path={ROUTES.admin} element={<AdminPage />}>

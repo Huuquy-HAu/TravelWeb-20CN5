@@ -37,7 +37,7 @@ function HeaderPage() {
     {
       key: '3',
       label: (
-        <a target="_blank" onClick={() => { nav('/booking') }}>
+        <a target="_blank" onClick={() => { nav('/user/tour') }}>
           Tất cả lịch booking
         </a>
       ),
